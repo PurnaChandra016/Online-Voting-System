@@ -1,0 +1,107 @@
+HTML (index.html)
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Voting System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="voting-system">
+    <h1>Online Voting System</h1>
+    <div id="candidates">
+      <h2>Candidates</h2>
+      <ul id="candidateList"></ul>
+    </div>
+    <div id="voteSection">
+      <h2>Cast Your Vote</h2>
+      <select id="candidateSelect"></select>
+      <button onclick="castVote()">Vote</button>
+    </div>
+    <div id="results">
+      <h2>Results</h2>
+      <ul id="resultList"></ul>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+CSS (styles.css)
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.voting-system {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #f8f9fa;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+select, button {
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+JavaScript (script.js)
+
+
+const candidates = [
+  { name: "Candidate A", votes: 0 },
+  { name: "Candidate B", votes: 0 },
+  { name: "Candidate C", votes: 0 },
+];
+
+function renderCandidates() {
+  const candidateList = document.getElementById("candidateList");
+  const candidateSelect = document.getElementById("candidateSelect");
+  candidateList.innerHTML = "";
+  candidateSelect.innerHTML = "";
+
+  candidates.forEach((candidate, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${candidate.name}: ${candidate.votes} votes`;
+    candidateList.appendChild(li);
+
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = candidate.name;
+    candidateSelect.appendChild(option);
+  });
+}
+
+function castVote() {
+  const selectedIndex = document.getElementById("candidateSelect").value;
+  candidates[selectedIndex].votes++;
+  renderCandidates();
+}
+
+renderCandidates();
